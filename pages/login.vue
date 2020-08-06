@@ -1,34 +1,31 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
-      <h1 class="title">
-        Join-the-Game
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <h2>ログイン</h2>
+      <form>
+        <div>
+          <input type="email" placeholder="you@example.com" />
+        </div>
+        <div>
+          <input type="password" placeholder="パスワード" />
+        </div>
+        <button type="submit" @click.prevent="login" class="btn btn-primary">
+          ログイン
+        </button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    login() {
+      console.log('login')
+      this.$store.dispatch('login')
+    },
+  },
+}
 </script>
 
 <style>
