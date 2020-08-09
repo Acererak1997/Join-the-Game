@@ -3,45 +3,44 @@
     <div>
       <div class="wrapper">
         <form class="form-register">
-          <h2 class="form-register-heading text-center">サインアップ</h2>
+          <h2 class="form-register-heading text-center">
+            サインアップ
+          </h2>
           <div>
             <input
+              v-model="email"
               class="form-control"
               type="email"
               placeholder="email"
-              v-model="email"
               required
             />
           </div>
           <div>
             <input
+              v-model="password"
               class="form-control"
               type="password"
               placeholder="パスワード"
-              v-model="password"
               required
             />
           </div>
           <div>
             <input
+              v-model="displayName"
               class="form-control"
               type="text"
               placeholder="ニックネーム"
-              v-model="displayName"
               required
             />
           </div>
           <button
             type="submit"
-            @click.prevent="registerUser"
             class="btn btn-lg btn-primary btn-block"
+            @click.prevent="registerUser"
           >
             新規登録
           </button>
-          <p class="small">
-            アカウントをお持ちの方は
-            <nuxt-link to="login">ログイン</nuxt-link>へ
-          </p>
+          <!-- <p class="small">アカウントをお持ちの方は<nuxt-link to="login">ログイン</nuxt-link>へ</p> -->
         </form>
       </div>
     </div>
