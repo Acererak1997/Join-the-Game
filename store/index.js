@@ -15,9 +15,29 @@ export const mutations = {
 }
 
 export const actions = {
-  login() {
-    firebase.auth().signInWithEmailAndPassword
+  login({ commit }, { email, password }) {
+    console.log('login action')
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        const user = response.user
+        console.log('success : ' + user)
+        console.log('success : ' + user.uid + ' : ' + user.displayName)
+        commit('setUserUid', user.uid)
+        commit('setDisplayName', user.displayName)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   },
 }
 
-export const getters = {}
+export const getters = {
+  getUserUid(state) {
+    return state.userUid
+  },
+  getUserName(state) {
+    return state.displayName
+  },
+}
