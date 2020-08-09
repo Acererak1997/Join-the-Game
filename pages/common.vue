@@ -1,8 +1,8 @@
 <template>
-  <b-container fluid>
+  <b-container>
     <div>
       <b-navbar toggleable="lg" type="dark" variant="dark">
-        <b-navbar-brand href="#">
+        <b-navbar-brand>
           Join the Game
         </b-navbar-brand>
 
@@ -10,25 +10,43 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item>
+            <b-nav-item to="/common/top">
               ホーム
             </b-nav-item>
-            <b-nav-item>
+            <b-nav-item to="/common/searchsession">
               セッションを探す
             </b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item right>
               <nuxt-link to="/login">
-                <button type="button" class="btn btn-outline-secondary">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  v-if="$store.getters.getStatus == null"
+                >
                   ログイン
                 </button>
               </nuxt-link>
             </b-nav-item>
             <b-nav-item right>
               <nuxt-link to="/register">
-                <button type="button" class="btn btn-outline-secondary">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  v-if="$store.getters.getStatus == null"
+                >
                   サインアップ
+                </button>
+              </nuxt-link>
+              <nuxt-link to="/common/top">
+                <button
+                  @click="logout"
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  v-if="$store.getters.getStatus !== null"
+                >
+                  ログアウト
                 </button>
               </nuxt-link>
             </b-nav-item>
@@ -39,28 +57,23 @@
 
     <nuxt-child />
 
-    <mdb-footer
-      color="stylish-color-dark"
-      class="page-footer font-small pt-4 mt-4"
-    >
+    <div color="stylish-color-dark" class="page-footer font-small pt-4 mt-4">
       <div class="footer-copyright text-center py-3">
-        <mdb-container fluid>
-          &copy; 2020 Copyright:
-          <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
-        </mdb-container>
+        &copy; 2020 Copyright:
+        <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
       </div>
-    </mdb-footer>
+    </div>
   </b-container>
 </template>
 
 <script>
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     }
   },
   computed: {
@@ -70,11 +83,8 @@ export default {
     },
   },
   methods: {
-    login() {
-      this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password,
-      })
+    logout() {
+      this.$store.dispatch("logout")
     },
   },
 }

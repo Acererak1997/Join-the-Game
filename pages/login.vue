@@ -32,7 +32,7 @@
             v-model="email"
             class="form-control"
             type="text"
-            placeholder="Username"
+            placeholder="email"
           />
         </div>
 
@@ -56,24 +56,10 @@
         <button
           class="login-form__button btn btn-primary w-75 mb-4"
           type="button"
-          :disabled="checkInput"
           @click="login"
         >
           Login
         </button>
-
-        <div
-          class="login-form__attention d-flex justify-content-between my-o mx-auto"
-        >
-          <div class="custom-control custom-checkbox">
-            <label class="custom-control-label" for="remember-me"
-              >情報を記憶する</label
-            >
-          </div>
-          <a class="card-link" href="#">
-            <u>パスワードを忘れた方はこちら</u>
-          </a>
-        </div>
       </div>
     </div>
   </section>
@@ -83,13 +69,13 @@
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     }
   },
   methods: {
     login() {
-      this.$store.dispatch('login', {
+      this.$store.dispatch("login", {
         email: this.email,
         password: this.password,
       })
