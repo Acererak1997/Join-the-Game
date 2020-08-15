@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"
+// import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"
 
 export default {
   data() {
@@ -81,9 +81,9 @@ export default {
   },
   computed: {
     // ログインしたらFontAwesomeから人型アイコンを取得してログインのところに張る
-    faMapMarkerAlt() {
-      return faMapMarkerAlt
-    },
+    // faMapMarkerAlt() {
+    //   return faMapMarkerAlt
+    // },
   },
   methods: {
     logout() {

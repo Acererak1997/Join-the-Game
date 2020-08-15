@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="text-center mt-5" v-if="$store.getters.getStatus == null">
+    <div v-if="$store.getters.getStatus == null" class="text-center mt-5">
       <p>
-        セッションを作成するには、<nuxt-link to="/login">ログイン</nuxt-link
+        セッションを作成するには、<nuxt-link to="/login"> ログイン </nuxt-link
         >する必要があります。
       </p>
       <p>
-        アカウントをお持ちでない方は<nuxt-link to="/register"
-          >サインアップ</nuxt-link
+        アカウントをお持ちでない方は<nuxt-link to="/register">
+          サインアップ </nuxt-link
         >をしてください
       </p>
     </div>
@@ -22,18 +22,14 @@
           aria-describedby="input-live-help input-live-feedback"
           placeholder="セッションのタイトルを入力してください"
           trim
-        ></b-form-input>
+        />
         <b-form-invalid-feedback id="input-live-feedback">
           セッション名は最低でも3文字以上である必要があります。
         </b-form-invalid-feedback>
 
         <div>
           <label for="date">開催日 </label>
-          <b-form-datepicker
-            id="date"
-            v-model="dateValue"
-            class="mb-2"
-          ></b-form-datepicker>
+          <b-form-datepicker id="date" v-model="dateValue" class="mb-2" />
         </div>
 
         <div>
@@ -42,7 +38,7 @@
             v-model="number"
             type="number"
             placeholder="募集する人数を選択してください"
-          ></b-form-input>
+          />
         </div>
 
         <div>
@@ -50,19 +46,20 @@
           <b-form-input
             v-model="location"
             placeholder="住所、またはURLを入力してください"
-          ></b-form-input>
+          />
         </div>
 
         <div>
           <label>トップ画像</label>
           <b-form-file
-            class="primary"
             v-model="file"
+            class="primary"
             :state="Boolean(file)"
+            accept="image"
             placeholder="画像ファイルを選択してください"
             drop-placeholder="Drop file here..."
-          ></b-form-file>
-          <div class="mt-3">Selected file: {{ file ? file.name : "" }}</div>
+            @change="uploadFile"
+          />
         </div>
       </div>
 
@@ -74,7 +71,7 @@
           placeholder="セッションの詳細や補足情報を入力してください"
           rows="3"
           max-rows="6"
-        ></b-form-textarea>
+        />
       </div>
 
       <div>
@@ -83,18 +80,18 @@
           v-model="checkedForBeginner"
           class="pb-1"
           name="beginner"
-          value="accepted"
-          unchecked-value="not_accepted"
+          value="true"
+          unchecked-value="false"
         >
           初心者歓迎
         </b-form-checkbox>
         <b-form-checkbox
           id="online"
-          v-model="status"
+          v-model="checkedOnline"
           class="pb-1"
           name="online"
-          value="accepted"
-          unchecked-value="not_accepted"
+          value="true"
+          unchecked-value="false"
         >
           オンラインセッション
         </b-form-checkbox>
@@ -112,21 +109,73 @@
 </template>
 
 <script>
+import firebase from "firebase/app"
+import "firebase/auth"
+import "firebase/storage"
+
 export default {
+  data() {
+    return {
+      user: "",
+      sessionName: "",
+      dateValue: "",
+      number: "",
+      file: null,
+      url: "",
+      location: "",
+      detail: "",
+      checkedForBeginner: false,
+      checkedOnline: false,
+    }
+  },
   computed: {
     nameState() {
       return this.sessionName.length > 2 ? true : false
     },
   },
-  data() {
-    return {
-      sessionName: "",
-      dateValue: "",
-      number: "",
-      file: null,
-      location: "",
-      detail: "",
+  mounted() {
+    if (this.$store.getters.getStatus !== null) {
+      this.user = firebase.auth().currentUser
+      console.log(this.user)
+      console.log(this.user.uid)
     }
+  },
+  methods: {
+    createSession() {
+      const newSession = firebase
+        .firestore()
+        .collection("sessions")
+        .doc(this.user.uid)
+      // .database()
+      // .ref("sessions")
+      // .child(this.user.uid + this.sessionName)
+
+      newSession.set({
+        creator: this.user.displayName,
+        sessionName: this.sessionName,
+        date: this.dateValue,
+        participants: this.number,
+        location: this.location,
+        topImage: this.url,
+        detail: this.detail,
+        checkedForBeginner: this.checkedForBeginner,
+        checkedOnline: this.checkedOnline,
+      })
+    },
+    uploadFile(event) {
+      let file = event.target.files[0]
+      const storageRef = firebase.storage().ref("images/" + file.name)
+      storageRef.put(file).then(() => {
+        storageRef
+          .getDownloadURL()
+          .then((url) => {
+            this.url = url
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      })
+    },
   },
 }
 </script>

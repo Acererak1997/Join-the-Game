@@ -27,9 +27,6 @@ export const actions = {
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
         const user = response.user
-        console.log(response)
-        console.log("success : " + user)
-        console.log("success : " + user.uid + " : " + user.displayName)
         commit("setUserUid", user.uid)
         commit("setDisplayName", user.displayName)
         commit("setStatus", { status })

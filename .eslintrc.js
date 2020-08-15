@@ -18,9 +18,12 @@ module.exports = {
   plugins: ["vue"],
   // ここにカスタムルールを追加します。
   rules: {
-    semi: [2, "never"],
-    "no-console": "off",
-    "vue/max-attributes-per-line": "off",
-    "prettier/prettier": ["error", { semi: false }],
+    semi: ["error", "always"],
+    "semi-spacing": ["error", { after: true, before: false }],
+    "semi-style": ["error", "last"],
+    "no-extra-semi": "error",
+    "no-unexpected-multiline": "error",
+    "no-unreachable": "error",
+    "prettier/prettier": ["error", { semi: true }],
   },
 }
