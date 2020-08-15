@@ -4,18 +4,18 @@
     <div class="card-img-overlay">
       <nuxt-link to="/login">
         <button
+          v-if="$store.getters.getStatus == null"
           type="button"
           class="btn btn-outline-primary"
-          v-if="$store.getters.getStatus == null"
         >
           ログイン
         </button>
       </nuxt-link>
       <nuxt-link to="/register">
         <button
+          v-if="$store.getters.getStatus == null"
           type="button"
           class="btn btn-outline-primary"
-          v-if="$store.getters.getStatus == null"
         >
           サインアップ
         </button>

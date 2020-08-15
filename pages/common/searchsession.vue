@@ -12,7 +12,6 @@
       <div>
         <b-form-checkbox
           id="forBeginner"
-          v-model="status"
           class="pb-1"
           name="forBeginner"
           value="accepted"
@@ -22,7 +21,6 @@
         </b-form-checkbox>
         <b-form-checkbox
           id="onlyOnline"
-          v-model="status"
           class="pb-1"
           name="onlyOnline"
           value="accepted"
@@ -35,22 +33,28 @@
         検索
       </button>
     </div>
-    <div class="mt-3">
+
+    <div class="mt-3" v-for="session in sessions" :key="session.id">
       <div class="d-flex align-items-center p-2 border mt-1">
         <div class="thumbnail">
-          <b-img style="width: 140px;" src="~/assets/topimage.jpg" />
+          <b-img style="width: 140px;" src="session.topImage" />
         </div>
-        <div class="ml-3 d-flex">
-          <div>
-            <h5>セッションタイトル</h5>
-            <p class="mb-0">参加人数：<span>0</span>/ <span>5</span>が参加中</p>
-            <p class="mb-0">
-              日時：<span>2020年</span> <span>11月</span> <span>21日</span>
+        <div class="ml-3">
+          <h5>{{ session.sessionName }}</h5>
+          <div class="d-flex">
+            <p class="mb-0 pr-2">
+              参加人数：<span>0</span>/<span>{{ session.participants }}</span
+              >名が参加中
             </p>
-            <p class="mb-0">開催場所：<span>世田谷区民ホール</span></p>
+            <p class="mb-0p pr-2">
+              日時：<span>{{ session.date }}</span>
+            </p>
+            <p class="mb-0">
+              開催場所：<span>{{ session.location }}</span>
+            </p>
           </div>
           <div>
-            <p>作成者：</p>
+            <p>作成者：{{ session.creator }}</p>
           </div>
         </div>
       </div>
@@ -59,9 +63,37 @@
 </template>
 
 <script>
+import firebase from "firebase/app"
+
 export default {
   data() {
-    return {}
+    return {
+      sessions: [],
+    }
+  },
+  mounted() {
+    firebase
+      .firestore()
+      .collection("sessions")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const sessionData = {
+            creator: doc.data().creator,
+            date: doc.data().date,
+            sessionName: doc.data().sessionName,
+            location: doc.data().location,
+            participants: doc.data().participants,
+            detail: doc.data().detail,
+            checkedOnline: doc.data().checkedOnline,
+            checkedForBeginner: doc.data().checkedForBeginner,
+            topImage: doc.data().topImage,
+          }
+          this.sessions.push(sessionData)
+          const session = doc.data()
+          session.id = doc.id
+        })
+      })
   },
 }
 </script>

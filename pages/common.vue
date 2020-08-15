@@ -14,16 +14,19 @@
               ホーム
             </b-nav-item>
             <b-nav-item to="/common/searchsession">
-              セッションを探す
+              セッションへ参加
+            </b-nav-item>
+            <b-nav-item to="/common/createsession">
+              セッションを作成
             </b-nav-item>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
             <b-nav-item right>
               <nuxt-link to="/login">
                 <button
+                  v-if="$store.getters.getStatus == null"
                   type="button"
                   class="btn btn-outline-secondary"
-                  v-if="$store.getters.getStatus == null"
                 >
                   ログイン
                 </button>
@@ -32,19 +35,19 @@
             <b-nav-item right>
               <nuxt-link to="/register">
                 <button
+                  v-if="$store.getters.getStatus == null"
                   type="button"
                   class="btn btn-outline-secondary"
-                  v-if="$store.getters.getStatus == null"
                 >
                   サインアップ
                 </button>
               </nuxt-link>
               <nuxt-link to="/common/top">
                 <button
-                  @click="logout"
+                  v-if="$store.getters.getStatus !== null"
                   type="button"
                   class="btn btn-outline-secondary"
-                  v-if="$store.getters.getStatus !== null"
+                  @click="logout"
                 >
                   ログアウト
                 </button>
@@ -67,7 +70,7 @@
 </template>
 
 <script>
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"
+// import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"
 
 export default {
   data() {
@@ -78,9 +81,9 @@ export default {
   },
   computed: {
     // ログインしたらFontAwesomeから人型アイコンを取得してログインのところに張る
-    faMapMarkerAlt() {
-      return faMapMarkerAlt
-    },
+    // faMapMarkerAlt() {
+    //   return faMapMarkerAlt
+    // },
   },
   methods: {
     logout() {

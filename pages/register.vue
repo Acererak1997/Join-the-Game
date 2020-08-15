@@ -64,10 +64,24 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((response) => {
+          const user = response.user
           console.log(response)
-          response.user.updateProfile({
+          user.updateProfile({
             displayName: this.displayName,
           })
+          // firebase.database().ref("users").child(user.uid).set({
+          //   displayName: this.displayName,
+          //   user_id: user.uid,
+          //   email: user.email,
+          // })
+          const userData = {
+            id: user.uid,
+            name: this.displayName,
+            email: user.email,
+          }
+          firebase.firestore().collection("users").doc(user.uid).set(userData)
+
+          this.$router.replace({ path: "/common/top" })
         })
         .catch((e) => {
           console.log(e)
