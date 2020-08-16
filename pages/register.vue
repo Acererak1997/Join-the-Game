@@ -47,8 +47,8 @@
   </div>
 </template>
 <script>
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from "firebase/app";
+import "firebase/auth";
 
 export default {
   data() {
@@ -56,7 +56,7 @@ export default {
       email: "",
       password: "",
       displayName: "",
-    }
+    };
   },
   methods: {
     registerUser() {
@@ -64,31 +64,26 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((response) => {
-          const user = response.user
-          console.log(response)
+          const user = response.user;
+          console.log(response);
           user.updateProfile({
             displayName: this.displayName,
-          })
-          // firebase.database().ref("users").child(user.uid).set({
-          //   displayName: this.displayName,
-          //   user_id: user.uid,
-          //   email: user.email,
-          // })
+          });
           const userData = {
             id: user.uid,
             name: this.displayName,
             email: user.email,
-          }
-          firebase.firestore().collection("users").doc(user.uid).set(userData)
+          };
+          firebase.firestore().collection("users").doc(user.uid).set(userData);
 
-          this.$router.replace({ path: "/common/top" })
+          this.$router.replace({ path: "/common/top" });
         })
         .catch((e) => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     },
   },
-}
+};
 </script>
 
 <style scoped>

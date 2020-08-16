@@ -11,7 +11,7 @@
         >をしてください
       </p>
     </div>
-    <div>
+    <div v-if="$store.getters.getStatus !== null">
       <h3>セッションの作成</h3>
       <div role="session">
         <label for="input-live">セッション名:</label>
@@ -109,9 +109,9 @@
 </template>
 
 <script>
-import firebase from "firebase/app"
-import "firebase/auth"
-import "firebase/storage"
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/storage";
 
 export default {
   data() {
@@ -126,18 +126,18 @@ export default {
       detail: "",
       checkedForBeginner: false,
       checkedOnline: false,
-    }
+    };
   },
   computed: {
     nameState() {
-      return this.sessionName.length > 2 ? true : false
+      return this.sessionName.length > 2 ? true : false;
     },
   },
   mounted() {
     if (this.$store.getters.getStatus !== null) {
-      this.user = firebase.auth().currentUser
-      console.log(this.user)
-      console.log(this.user.uid)
+      this.user = firebase.auth().currentUser;
+      console.log(this.user);
+      console.log(this.user.uid);
     }
   },
   methods: {
@@ -145,7 +145,7 @@ export default {
       const newSession = firebase
         .firestore()
         .collection("sessions")
-        .doc(this.user.uid)
+        .doc(this.user.uid);
       // .database()
       // .ref("sessions")
       // .child(this.user.uid + this.sessionName)
@@ -160,22 +160,22 @@ export default {
         detail: this.detail,
         checkedForBeginner: this.checkedForBeginner,
         checkedOnline: this.checkedOnline,
-      })
+      });
     },
     uploadFile(event) {
-      let file = event.target.files[0]
-      const storageRef = firebase.storage().ref("images/" + file.name)
+      let file = event.target.files[0];
+      const storageRef = firebase.storage().ref("images/" + file.name);
       storageRef.put(file).then(() => {
         storageRef
           .getDownloadURL()
           .then((url) => {
-            this.url = url
+            this.url = url;
           })
           .catch((error) => {
-            console.log(error)
-          })
-      })
+            console.log(error);
+          });
+      });
     },
   },
-}
+};
 </script>

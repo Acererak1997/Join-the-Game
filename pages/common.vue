@@ -77,7 +77,7 @@ export default {
     return {
       email: "",
       password: "",
-    }
+    };
   },
   computed: {
     // ログインしたらFontAwesomeから人型アイコンを取得してログインのところに張る
@@ -87,10 +87,10 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("logout")
+      this.$store.dispatch("logout");
     },
   },
-}
+};
 </script>
 
 <style></style>
