@@ -34,10 +34,10 @@
       </button>
     </div>
 
-    <div class="mt-3" v-for="session in sessions" :key="session.id">
+    <div v-for="session in sessions" class="mt-3" :key="session.id">
       <div class="d-flex align-items-center p-2 border mt-1">
         <div class="thumbnail">
-          <b-img style="width: 140px;" src="session.topImage" />
+          <b-img style="width: 140px;" :src="session.topImage" />
         </div>
         <div class="ml-3">
           <h5>{{ session.sessionName }}</h5>
@@ -55,6 +55,8 @@
           </div>
           <div>
             <p>作成者：{{ session.creator }}</p>
+            <!-- 初心者向けのアイコンとOnlineセッション向けのアイコンをv-ifでオンオフ -->
+            <div />
           </div>
         </div>
       </div>
@@ -63,13 +65,13 @@
 </template>
 
 <script>
-import firebase from "firebase/app"
+import firebase from "firebase/app";
 
 export default {
   data() {
     return {
       sessions: [],
-    }
+    };
   },
   mounted() {
     firebase
@@ -88,14 +90,14 @@ export default {
             checkedOnline: doc.data().checkedOnline,
             checkedForBeginner: doc.data().checkedForBeginner,
             topImage: doc.data().topImage,
-          }
-          this.sessions.push(sessionData)
-          const session = doc.data()
-          session.id = doc.id
-        })
-      })
+          };
+          this.sessions.push(sessionData);
+          const session = doc.data();
+          session.id = doc.id;
+        });
+      });
   },
-}
+};
 </script>
 
 <style></style>

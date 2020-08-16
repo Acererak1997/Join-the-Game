@@ -26,4 +26,4 @@ module.exports = {
     "no-unreachable": "error",
     "prettier/prettier": ["error", { semi: true }],
   },
-}
+};

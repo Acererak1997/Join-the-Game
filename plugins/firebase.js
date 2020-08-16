@@ -1,4 +1,4 @@
-import firebase from "firebase"
+import firebase from "firebase";
 
 if (!firebase.apps.length) {
   const firebaseConfig = {
@@ -10,10 +10,10 @@ if (!firebase.apps.length) {
     messagingSenderId: "516346423858",
     appId: "1:516346423858:web:6ab7a242a440e7310d6a2b",
     measurementId: "G-7ZYJG16N1R",
-  }
+  };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig)
-  firebase.analytics()
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 }
 
-export default firebase
+export default firebase;
