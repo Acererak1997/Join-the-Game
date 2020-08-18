@@ -34,29 +34,45 @@
       </button>
     </div>
 
-    <div v-for="session in sessions" class="mt-3" :key="session.id">
-      <div class="d-flex align-items-center p-2 border mt-1">
-        <div class="thumbnail">
-          <b-img style="width: 140px;" :src="session.topImage" />
-        </div>
-        <div class="ml-3">
-          <h5>{{ session.sessionName }}</h5>
-          <div class="d-flex">
-            <p class="mb-0 pr-2">
-              参加人数：<span>0</span>/<span>{{ session.participants }}</span
-              >名が参加中
-            </p>
-            <p class="mb-0p pr-2">
-              日時：<span>{{ session.date }}</span>
-            </p>
-            <p class="mb-0">
-              開催場所：<span>{{ session.location }}</span>
+    <div class="card-group">
+      <div v-for="session in sessions" class="mt-3" :key="session.id">
+        <div class="card" style="width: 18rem;">
+          <b-img
+            class="bd-placeholder-img card-img-top"
+            width="100%"
+            height="180"
+            :src="session.topImage"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+            role="img"
+            aria-label="Placeholder: Image cap"
+          >
+            <title>Placeholder</title>
+            <rect fill="#868e96" width="100%" height="100%" />
+            <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text>
+          </b-img>
+          <div class="card-body">
+            <h5 class="card-title">{{ session.sessionName }}</h5>
+            <p class="card-text">
+              {{ session.detail }}
             </p>
           </div>
-          <div>
-            <p>作成者：{{ session.creator }}</p>
-            <!-- 初心者向けのアイコンとOnlineセッション向けのアイコンをv-ifでオンオフ -->
-            <div />
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              参加人数：<span>0</span>/<span>{{ session.participants }}</span
+              >名が参加中
+            </li>
+            <li class="list-group-item">{{ session.location }}</li>
+            <li class="list-group-item">{{ session.date }}</li>
+            <li class="list-group-item">{{ session.creator }}</li>
+          </ul>
+          <div class="card-body">
+            <span class="badge badge-primary" v-if="session.checkedForBeginner"
+              >初心者歓迎</span
+            >
+            <span class="badge badge-primary" v-if="session.checkedOnline"
+              >オンラインセッション</span
+            >
           </div>
         </div>
       </div>
