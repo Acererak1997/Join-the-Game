@@ -26,7 +26,13 @@
         <b-form-invalid-feedback id="input-live-feedback">
           セッション名は最低でも3文字以上である必要があります。
         </b-form-invalid-feedback>
-
+        <div>
+          <label>ゲームシステム</label>
+          <b-form-select
+            v-model="gameSystem"
+            :options="gameSystemOptions"
+          ></b-form-select>
+        </div>
         <div>
           <label for="date">開催日 </label>
           <b-form-datepicker id="date" v-model="dateValue" class="mb-2" />
@@ -112,12 +118,17 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
-
 export default {
   data() {
     return {
       user: "",
       sessionName: "",
+      gameSystemOptions: [
+        { value: 0, text: "ダンジョンズ＆ドラゴンズ" },
+        { value: 1, text: "クトゥルフ神話TRPG" },
+        { value: 2, text: "ソード・ワールド" },
+      ],
+      gameSystem: null,
       dateValue: "",
       number: "",
       file: null,
@@ -146,13 +157,10 @@ export default {
         .firestore()
         .collection("sessions")
         .doc(this.user.uid);
-      // .database()
-      // .ref("sessions")
-      // .child(this.user.uid + this.sessionName)
-
       newSession.set({
         creator: this.user.displayName,
         sessionName: this.sessionName,
+        gameSystem: this.gameSystem,
         date: this.dateValue,
         participants: this.number,
         location: this.location,

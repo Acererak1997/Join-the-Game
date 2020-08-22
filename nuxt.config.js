@@ -55,7 +55,7 @@ export default {
     "bootstrap-vue/nuxt",
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    "nuxt-fontawesome",
+    // "nuxt-fontawesome",
   ],
   /*
    ** Axios module configuration
