@@ -3,29 +3,17 @@
     <div class="mt-2 border border-secondary p-3">
       <h3>セッション検索</h3>
       <div>
-        <b-dropdown id="dropdown-1" text="ゲームシステム" class="m-md-2">
-          <b-dropdown-item>ダンジョンズ＆ドラゴンズ</b-dropdown-item>
-          <b-dropdown-item>クトゥルフ神話TRPG</b-dropdown-item>
-          <b-dropdown-item>ソードワールド</b-dropdown-item>
-        </b-dropdown>
+        <label>ゲームシステム</label>
+        <b-form-select
+          v-model="gameSystem"
+          :options="gameSystemOptions"
+        ></b-form-select>
       </div>
       <div>
-        <b-form-checkbox
-          id="forBeginner"
-          class="pb-1"
-          name="forBeginner"
-          value="accepted"
-          unchecked-value="not_accepted"
-        >
+        <b-form-checkbox id="forBeginner" class="pb-1" v-model="forBeginner">
           初心者歓迎
         </b-form-checkbox>
-        <b-form-checkbox
-          id="onlyOnline"
-          class="pb-1"
-          name="onlyOnline"
-          value="accepted"
-          unchecked-value="not_accepted"
-        >
+        <b-form-checkbox id="onlyOnline" class="pb-1" v-model="onlyOnline">
           オンラインセッションのみ
         </b-form-checkbox>
       </div>
@@ -35,7 +23,7 @@
     </div>
 
     <div class="card-group">
-      <div v-for="session in sessions" class="mt-3" :key="session.id">
+      <div v-for="session in filterSessions" class="mt-3" :key="session.id">
         <div class="card" style="width: 18rem;">
           <b-img
             class="bd-placeholder-img card-img-top"
@@ -57,14 +45,14 @@
               {{ session.detail }}
             </p>
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              参加人数：<span>0</span>/<span>{{ session.participants }}</span
+          <ul class="sessionList-group sessionList-group-flush">
+            <li class="sessionList-group-item">
+              <span>0</span>/<span>{{ session.participants }}</span
               >名が参加中
             </li>
-            <li class="list-group-item">{{ session.location }}</li>
-            <li class="list-group-item">{{ session.date }}</li>
-            <li class="list-group-item">{{ session.creator }}</li>
+            <li class="sessionList-group-item">{{ session.location }}</li>
+            <li class="sessionList-group-item">{{ session.date }}</li>
+            <li class="sessionList-group-item">{{ session.creator }}</li>
           </ul>
           <div class="card-body">
             <span class="badge badge-primary" v-if="session.checkedForBeginner"
@@ -82,12 +70,42 @@
 
 <script>
 import firebase from "firebase/app";
-
 export default {
   data() {
     return {
       sessions: [],
+      gameSystemOptions: [
+        { value: -1, text: "すべてのゲームシステム" },
+        { value: 0, text: "ダンジョンズ＆ドラゴンズ" },
+        { value: 1, text: "クトゥルフ神話TRPG" },
+        { value: 2, text: "ソード・ワールド" },
+      ],
+      gameSystem: -1,
+      forBeginner: false,
+      onlyOnline: false,
     };
+  },
+  computed: {
+    filterSessions: function () {
+      const sessionList = this.sessions.filter(function (session) {
+        return this.gameSystem < 0
+          ? true
+          : this.gameSystem === session.gameSystem;
+      }, this);
+
+      if (this.forBeginner) {
+        return sessionList.filter(function (session) {
+          return session.checkedForBeginner == true;
+        }, this);
+      }
+
+      if (this.onlyOnline) {
+        return sessionList.filter(function (session) {
+          return session.checkedOnline == true;
+        }, this);
+      }
+      return sessionList;
+    },
   },
   mounted() {
     firebase
@@ -100,6 +118,7 @@ export default {
             creator: doc.data().creator,
             date: doc.data().date,
             sessionName: doc.data().sessionName,
+            gameSystem: doc.data().gameSystem,
             location: doc.data().location,
             participants: doc.data().participants,
             detail: doc.data().detail,
