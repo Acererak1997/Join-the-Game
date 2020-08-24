@@ -79,12 +79,6 @@ export default {
       password: "",
     };
   },
-  computed: {
-    // ログインしたらFontAwesomeから人型アイコンを取得してログインのところに張る
-    // faMapMarkerAlt() {
-    //   return faMapMarkerAlt
-    // },
-  },
   methods: {
     logout() {
       this.$store.dispatch("logout");

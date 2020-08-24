@@ -147,17 +147,13 @@ export default {
   mounted() {
     if (this.$store.getters.getStatus !== null) {
       this.user = firebase.auth().currentUser;
-      console.log(this.user);
-      console.log(this.user.uid);
     }
   },
   methods: {
     createSession() {
-      const newSession = firebase
-        .firestore()
-        .collection("sessions")
-        .doc(this.user.uid);
+      const newSession = firebase.firestore().collection("sessions").doc();
       newSession.set({
+        creatorId: this.uid,
         creator: this.user.displayName,
         sessionName: this.sessionName,
         gameSystem: this.gameSystem,

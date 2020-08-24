@@ -23,7 +23,7 @@
     </div>
 
     <div class="card-group">
-      <div v-for="session in filterSessions" class="mt-3" :key="session.id">
+      <div v-for="session in searchSessions" class="mt-3" :key="session.id">
         <div class="card" style="width: 18rem;">
           <b-img
             class="bd-placeholder-img card-img-top"
@@ -35,12 +35,13 @@
             role="img"
             aria-label="Placeholder: Image cap"
           >
-            <title>Placeholder</title>
-            <rect fill="#868e96" width="100%" height="100%" />
-            <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text>
           </b-img>
           <div class="card-body">
-            <h5 class="card-title">{{ session.sessionName }}</h5>
+            <nuxt-link :to="`/common/session/${session.id}`">
+              <h5 class="card-title">
+                {{ session.sessionName }}
+              </h5>
+            </nuxt-link>
             <p class="card-text">
               {{ session.detail }}
             </p>
@@ -70,6 +71,7 @@
 
 <script>
 import firebase from "firebase/app";
+
 export default {
   data() {
     return {
@@ -86,7 +88,7 @@ export default {
     };
   },
   computed: {
-    filterSessions: function () {
+    searchSessions: function () {
       const sessionList = this.sessions.filter(function (session) {
         return this.gameSystem < 0
           ? true
@@ -115,6 +117,7 @@ export default {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const sessionData = {
+            id: doc.id,
             creator: doc.data().creator,
             date: doc.data().date,
             sessionName: doc.data().sessionName,
@@ -127,8 +130,6 @@ export default {
             topImage: doc.data().topImage,
           };
           this.sessions.push(sessionData);
-          const session = doc.data();
-          session.id = doc.id;
         });
       });
   },
