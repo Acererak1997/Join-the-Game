@@ -70,8 +70,6 @@
 </template>
 
 <script>
-// import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"
-
 export default {
   data() {
     return {

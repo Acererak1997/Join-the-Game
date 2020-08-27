@@ -85,9 +85,6 @@ export default {
       onlyOnline: false,
     };
   },
-  created: function () {
-    this.$store.dispatch("sessionlist/getSessionslist");
-  },
   computed: {
     searchSessions: function () {
       const sessionList = this.$store.getters["sessionlist/getSessoinData"];
@@ -109,6 +106,9 @@ export default {
       }
       return searchSessionsList;
     },
+  },
+  created: function () {
+    this.$store.dispatch("sessionlist/getSessionslist");
   },
 };
 </script>
