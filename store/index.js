@@ -21,7 +21,6 @@ export const mutations = {
 
 export const actions = {
   login({ commit }, { email, password }) {
-    console.log("login action");
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)

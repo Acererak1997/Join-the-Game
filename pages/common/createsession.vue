@@ -28,10 +28,7 @@
         </b-form-invalid-feedback>
         <div>
           <label>ゲームシステム</label>
-          <b-form-select
-            v-model="gameSystem"
-            :options="gameSystemOptions"
-          ></b-form-select>
+          <b-form-select v-model="gameSystem" :options="gameSystemOptions" />
         </div>
         <div>
           <label for="date">開催日 </label>

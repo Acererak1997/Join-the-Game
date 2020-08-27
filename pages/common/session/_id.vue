@@ -1,5 +1,26 @@
 <template>
-  <div>{{ session.sessionName }}</div>
+  <div>
+    <b-img
+      class="bd-placeholder-img card-img-top"
+      width="100%"
+      :src="session.topImage"
+      focusable="false"
+      role="img"
+    />
+    {{ session.sessionName }}
+    <button
+      v-if="!post.participating_status"
+      type="button"
+      class="btn btn-info"
+    >
+      参加する
+    </button>
+    <button v-if="post.participating_status" type="button" class="btn btn-info">
+      退出する
+    </button>
+    <p>作成者：{{ session.creator }}</p>
+    <p>参加者：</p>
+  </div>
 </template>
 
 <script>
@@ -9,7 +30,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      session: "",
+      session: [],
     };
   },
   mounted() {
@@ -31,7 +52,7 @@ export default {
           detail: sessionField.detail,
           checkedOnline: sessionField.checkedOnline,
           checkedForBeginner: sessionField.checkedForBeginner,
-          topImage: sessionField.topImage,
+          topImage: sessionField.topImage.stringValue,
         };
       })
       .catch((response) => console.log(response));
