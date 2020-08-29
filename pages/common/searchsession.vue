@@ -107,7 +107,7 @@ export default {
       return searchSessionsList;
     },
   },
-  created: function () {
+  created() {
     this.$store.dispatch("sessionlist/getSessionslist");
   },
 };

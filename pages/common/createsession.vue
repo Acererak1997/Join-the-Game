@@ -150,7 +150,7 @@ export default {
     createSession() {
       const newSession = firebase.firestore().collection("sessions").doc();
       newSession.set({
-        creatorId: this.uid,
+        creatorId: this.user.uid,
         creator: this.user.displayName,
         sessionName: this.sessionName,
         gameSystem: this.gameSystem,
