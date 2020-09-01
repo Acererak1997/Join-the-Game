@@ -155,12 +155,13 @@ export default {
         sessionName: this.sessionName,
         gameSystem: this.gameSystem,
         date: this.dateValue,
-        participants: this.number,
+        participants: Number(this.number),
+        members: 0,
         location: this.location,
         topImage: this.url,
         detail: this.detail,
-        checkedForBeginner: this.checkedForBeginner,
-        checkedOnline: this.checkedOnline,
+        checkedForBeginner: Boolean(this.checkedForBeginner),
+        checkedOnline: Boolean(this.checkedOnline),
       });
     },
     uploadFile(event) {

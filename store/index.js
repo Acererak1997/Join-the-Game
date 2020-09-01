@@ -42,6 +42,7 @@ export const actions = {
       .signOut()
       .then(() => {
         commit("setStatus", null);
+        this.$router.replace({ path: "/common/top" });
       })
       .catch((e) => {
         console.log(e);

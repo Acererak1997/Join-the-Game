@@ -43,7 +43,8 @@
           </div>
           <ul class="sessionList-group sessionList-group-flush">
             <li class="sessionList-group-item">
-              <span>0</span>/<span>{{ session.participants }}</span
+              <span>{{ session.members }}</span
+              >/<span>{{ session.participants }}</span
               >名が参加中
             </li>
             <li class="sessionList-group-item">
@@ -88,7 +89,6 @@ export default {
   computed: {
     searchSessions: function () {
       const sessionList = this.$store.getters["sessionlist/getSessoinData"];
-      console.log(sessionList);
       const searchSessionsList = sessionList.filter(function (session) {
         return this.gameSystem < 0
           ? true
