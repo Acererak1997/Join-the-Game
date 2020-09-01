@@ -28,10 +28,7 @@
         </b-form-invalid-feedback>
         <div>
           <label>ゲームシステム</label>
-          <b-form-select
-            v-model="gameSystem"
-            :options="gameSystemOptions"
-          ></b-form-select>
+          <b-form-select v-model="gameSystem" :options="gameSystemOptions" />
         </div>
         <div>
           <label for="date">開催日 </label>
@@ -147,27 +144,24 @@ export default {
   mounted() {
     if (this.$store.getters.getStatus !== null) {
       this.user = firebase.auth().currentUser;
-      console.log(this.user);
-      console.log(this.user.uid);
     }
   },
   methods: {
     createSession() {
-      const newSession = firebase
-        .firestore()
-        .collection("sessions")
-        .doc(this.user.uid);
+      const newSession = firebase.firestore().collection("sessions").doc();
       newSession.set({
+        creatorId: this.user.uid,
         creator: this.user.displayName,
         sessionName: this.sessionName,
         gameSystem: this.gameSystem,
         date: this.dateValue,
-        participants: this.number,
+        participants: Number(this.number),
+        members: 0,
         location: this.location,
         topImage: this.url,
         detail: this.detail,
-        checkedForBeginner: this.checkedForBeginner,
-        checkedOnline: this.checkedOnline,
+        checkedForBeginner: Boolean(this.checkedForBeginner),
+        checkedOnline: Boolean(this.checkedOnline),
       });
     },
     uploadFile(event) {

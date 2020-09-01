@@ -21,7 +21,6 @@ export const mutations = {
 
 export const actions = {
   login({ commit }, { email, password }) {
-    console.log("login action");
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -43,6 +42,7 @@ export const actions = {
       .signOut()
       .then(() => {
         commit("setStatus", null);
+        this.$router.replace({ path: "/common/top" });
       })
       .catch((e) => {
         console.log(e);
