@@ -10,6 +10,7 @@
     {{ identifySession.sessionName }}
     <button
       type="button"
+      v-if="!joinStatus"
       class="btn btn-info"
       @click.prevent="joinSession(identifySession)"
     >
@@ -17,15 +18,16 @@
     </button>
     <button
       type="button"
+      v-else
       class="btn btn-info"
-      @click.prevent="joinSession(session)"
+      @click.prevent="declineSession(identifySession)"
     >
       退出する
     </button>
     <p>作成者：{{ identifySession.creator }}</p>
     <p>参加者</p>
     <ul v-for="member in sessionMembers" :key="member.id">
-      <li>{{ member.user_displayName }}</li>
+      <li>{{ member.userDisplayName }}</li>
     </ul>
   </div>
 </template>
@@ -37,6 +39,7 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
+      joinStatus: false,
     };
   },
   computed: {
@@ -48,29 +51,61 @@ export default {
     sessionMembers() {
       return this.$store.getters[
         "progresssessions/getProgressSessoinData"
-      ].filter((session) => session.session_id === this.$route.params.id);
-    },
-  },
-  methods: {
-    joinSession(session) {
-      if (!this.identifySession.members < this.identifySession.particiapnts) {
-        alert("参加人数は既に満員です");
-      } else {
-        this.$store.commit("progresssessions/joinSession", session);
-        const joinSession = firebase
-          .firestore()
-          .collection("sessions")
-          .doc(this.$route.params.id);
-
-        joinSession.update({
-          members: firebase.firestore.FieldValue.increment(1),
-        });
-      }
+      ].filter((session) => session.sessionId === this.$route.params.id);
     },
   },
   created: function () {
     this.$store.dispatch("sessionlist/getSessionslist");
     this.$store.dispatch("progresssessions/getProgressSessionslist");
+    const user = firebase.auth().currentUser;
+    const confrimJoinStatus = firebase
+      .firestore()
+      .collection("progressSessions")
+      .where("sessionId", "==", this.$route.params.id)
+      .where("userId", "==", user.uid);
+
+    const self = this;
+
+    confrimJoinStatus
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          if (doc.exists) {
+            self.joinStatus = true;
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  methods: {
+    joinSession(session) {
+      if (!session.members > session.participants) {
+        alert("参加人数は既に満員です");
+      } else {
+        this.$store.commit("progresssessions/joinSession", session);
+
+        const joinSession = firebase
+          .firestore()
+          .collection("sessions")
+          .doc(this.$route.params.id);
+        joinSession.update({
+          members: firebase.firestore.FieldValue.increment(1),
+        });
+      }
+    },
+    declineSession(session) {
+      this.$store.commit("progresssessions/declineSession", session);
+
+      const declineSession = firebase
+        .firestore()
+        .collection("sessions")
+        .doc(this.$route.params.id);
+      declineSession.update({
+        members: firebase.firestore.FieldValue.increment(-1),
+      });
+    },
   },
 };
 </script>
