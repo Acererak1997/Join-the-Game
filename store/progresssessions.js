@@ -19,15 +19,6 @@ export const mutations = {
         userDisplayName: user.displayName,
         sessionId: session.id,
         sessionName: session.sessionName,
-        gameSystem: session.gameSystem,
-        date: session.dateValue,
-        participants: Number(session.number),
-        members: session.members,
-        location: session.location,
-        topImage: session.topImage,
-        detail: this.detail,
-        checkedForBeginner: Boolean(session.checkedForBeginner),
-        checkedOnline: Boolean(session.checkedOnline),
         joinStatus: true,
       })
       .then(() => {
@@ -64,8 +55,7 @@ export const actions = {
     firebase
       .firestore()
       .collection("progressSessions")
-      .get()
-      .then((snapshot) => {
+      .onSnapshot((snapshot) => {
         let getProg = [];
         snapshot.forEach((ele) => {
           let session = ele.data();

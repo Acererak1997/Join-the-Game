@@ -55,7 +55,7 @@ export default {
     "bootstrap-vue/nuxt",
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    // "nuxt-fontawesome",
+    "nuxt-fontawesome",
   ],
   /*
    ** Axios module configuration
@@ -63,7 +63,12 @@ export default {
    */
   axios: {},
   fontawesome: {
-    component: "fa",
+    imports: [
+      {
+        set: "@fortawesome/free-solid-svg-icons",
+        icons: ["fas"],
+      },
+    ],
   },
   /*
    ** Build configuration
@@ -82,7 +87,7 @@ export default {
       }
     },
   },
-  router: {
-    middleware: ["getSessoin"],
-  },
+  // router: {
+  //   middleware: ["getSessoin"],
+  // },
 };

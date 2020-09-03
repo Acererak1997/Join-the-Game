@@ -10,15 +10,14 @@
     {{ identifySession.sessionName }}
     <button
       type="button"
-      v-if="!joinStatus"
       class="btn btn-info"
       @click.prevent="joinSession(identifySession)"
     >
+      {{ sessionMembers.joinStatus }}
       参加する
     </button>
     <button
       type="button"
-      v-else
       class="btn btn-info"
       @click.prevent="declineSession(identifySession)"
     >
@@ -58,26 +57,27 @@ export default {
     this.$store.dispatch("sessionlist/getSessionslist");
     this.$store.dispatch("progresssessions/getProgressSessionslist");
     const user = firebase.auth().currentUser;
-    const confrimJoinStatus = firebase
-      .firestore()
-      .collection("progressSessions")
-      .where("sessionId", "==", this.$route.params.id)
-      .where("userId", "==", user.uid);
+    if (user) {
+      const confrimJoinStatus = firebase
+        .firestore()
+        .collection("progressSessions")
+        .where("sessionId", "==", this.$route.params.id)
+        .where("userId", "==", user.uid);
+      const self = this;
 
-    const self = this;
-
-    confrimJoinStatus
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          if (doc.exists) {
-            self.joinStatus = true;
-          }
+      confrimJoinStatus
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (doc.exists) {
+              self.joinStatus = true;
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }
   },
   methods: {
     joinSession(session) {
