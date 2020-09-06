@@ -2,7 +2,7 @@
   <b-container>
     <div>
       <div>
-        <b-navbar toggleable="lg" type="dark" variant="dark">
+        <b-navbar toggleable="lg" type="dark" variant="dark" class="p4">
           <b-navbar-brand to="/common/">
             Let's Join!
           </b-navbar-brand>

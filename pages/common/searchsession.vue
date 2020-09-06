@@ -21,7 +21,7 @@
     <div class="Card decks">
       <div v-for="session in searchSessions" class="mt-3" :key="session.id">
         <sessioncard
-          :gameSystem="session.gameSystem"
+          :gameSystem="gameSystemLabels[session.gameSystem]"
           :session-id="session.id"
           :session-title="session.sessionName"
           :sessiontop-image="session.topImage"
@@ -76,6 +76,11 @@ export default {
         }, this);
       }
       return searchSessionsList;
+    },
+    gameSystemLabels() {
+      return this.gameSystemOptions.reduce(function (a, b) {
+        return Object.assign(a, { [b.value]: b.text });
+      });
     },
   },
   created() {

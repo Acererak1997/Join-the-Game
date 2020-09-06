@@ -1,33 +1,76 @@
 <template>
-  <div>
-    <b-img
-      class="bd-placeholder-img card-img-top"
-      width="100%"
-      :src="identifySession.topImage"
-      focusable="false"
-      role="img"
-    />
-    {{ identifySession.sessionName }}
-    <button
-      type="button"
-      class="btn btn-info"
-      @click.prevent="joinSession(identifySession)"
-    >
-      {{ sessionMembers.joinStatus }}
-      参加する
-    </button>
-    <button
-      type="button"
-      class="btn btn-info"
-      @click.prevent="declineSession(identifySession)"
-    >
-      退出する
-    </button>
-    <p>作成者：{{ identifySession.creator }}</p>
-    <p>参加者</p>
-    <ul v-for="member in sessionMembers" :key="member.id">
-      <li>{{ member.userDisplayName }}</li>
-    </ul>
+  <div class="d-flex mt-3">
+    <div class="w-50">
+      <b-img
+        class="bd-placeholder-img card-img-top"
+        :src="identifySession.topImage"
+        focusable="false"
+        role="img"
+      />
+
+      <div class="mt-3 mb-3">
+        <button
+          type="button"
+          class="btn btn-info"
+          @click.prevent="joinSession(identifySession)"
+          v-if="!joinStatus"
+        >
+          {{ sessionMembers.joinStatus }}
+          参加する
+        </button>
+        <button
+          type="button"
+          class="btn btn-info"
+          @click.prevent="declineSession(identifySession)"
+          v-else
+        >
+          退出する
+        </button>
+        <button type="button" class="btn btn-info">
+          削除（実装中）
+        </button>
+      </div>
+
+      <div>
+        <h5>参加者</h5>
+        {{ joinStatus }}
+        <ul v-for="member in sessionMembers" :key="member.id">
+          <li>{{ member.userDisplayName }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ml-3 w-50">
+      <h2>
+        {{ identifySession.sessionName }}
+      </h2>
+      <table class="table table-striped mt-2">
+        <tbody>
+          <tr>
+            <th scope="row">ゲームマスター：</th>
+            <td>{{ identifySession.creator }}</td>
+          </tr>
+          <tr>
+            <th scope="row">ゲームシステム：</th>
+            <td>{{ gameSystemLabels[identifySession.gameSystem] }}</td>
+          </tr>
+          <tr>
+            <th scope="row">開始日：</th>
+            <td>{{ identifySession.date }}</td>
+          </tr>
+          <tr>
+            <th scope="row">ロケーション：</th>
+            <td>{{ identifySession.location }}</td>
+          </tr>
+          <tr>
+            <th scope="row">募集人数：</th>
+            <td>{{ identifySession.participants }}人</td>
+          </tr>
+        </tbody>
+      </table>
+      <h4>セッション詳細</h4>
+      <p>{{ identifySession.detail }}</p>
+    </div>
   </div>
 </template>
 
@@ -39,6 +82,12 @@ export default {
     return {
       id: this.$route.params.id,
       joinStatus: false,
+      gameSystemOptions: [
+        { value: -1, text: "すべてのゲームシステム" },
+        { value: 0, text: "ダンジョンズ＆ドラゴンズ" },
+        { value: 1, text: "クトゥルフ神話TRPG" },
+        { value: 2, text: "ソード・ワールド" },
+      ],
     };
   },
   computed: {
@@ -51,6 +100,11 @@ export default {
       return this.$store.getters[
         "progresssessions/getProgressSessoinData"
       ].filter((session) => session.sessionId === this.$route.params.id);
+    },
+    gameSystemLabels() {
+      return this.gameSystemOptions.reduce(function (a, b) {
+        return Object.assign(a, { [b.value]: b.text });
+      });
     },
   },
   created: function () {
