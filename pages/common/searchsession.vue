@@ -18,18 +18,19 @@
         検索
       </button>
     </div>
-    <div class="card-group">
+    <div class="Card decks">
       <div v-for="session in searchSessions" class="mt-3" :key="session.id">
         <sessioncard
-          :sessionId="session.id"
+          :gameSystem="session.gameSystem"
+          :session-id="session.id"
           :session-title="session.sessionName"
-          :sessiontopImage="session.topImage"
+          :sessiontop-image="session.topImage"
           :session-detail="session.detail"
-          :sessionDate="session.date"
-          :sessionLocation="session.location"
-          :currentPlayersNum="session.members"
-          :maxPlayersNum="session.participants"
-          :gameMaster="session.creator"
+          :session-date="session.date"
+          :session-location="session.location"
+          :current-players-num="session.members"
+          :max-players-num="session.participants"
+          :game-master="session.creator"
         />
       </div>
     </div>

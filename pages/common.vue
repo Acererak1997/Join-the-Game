@@ -4,7 +4,7 @@
       <div>
         <b-navbar toggleable="lg" type="dark" variant="dark">
           <b-navbar-brand to="/common/">
-            Join the Game
+            Let's Join!
           </b-navbar-brand>
 
           <b-navbar-toggle target="nav-collapse" />
@@ -12,13 +12,13 @@
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
               <b-nav-item to="/common/">
-                ホーム
+                Home
               </b-nav-item>
               <b-nav-item to="/common/searchsession">
-                セッションへ参加
+                Join a Game
               </b-nav-item>
               <b-nav-item to="/common/createsession">
-                セッションを作成
+                Create Your Game
               </b-nav-item>
             </b-navbar-nav>
 
@@ -29,12 +29,12 @@
               <b-nav-item right>
                 <nuxt-link to="/login">
                   <button type="button" class="btn btn-outline-secondary">
-                    ログイン
+                    Login
                   </button>
                 </nuxt-link>
                 <nuxt-link to="/register">
                   <button type="button" class="btn btn-outline-secondary">
-                    サインアップ
+                    Create Account
                   </button>
                 </nuxt-link>
               </b-nav-item>
@@ -49,10 +49,10 @@
                   <em>{{ $store.getters.getUserName }}</em>
                 </template>
                 <b-dropdown-item to="/common/my-page">
-                  マイページ
+                  Mypage
                 </b-dropdown-item>
                 <b-dropdown-item @click="logout">
-                  サインアウト
+                  Logout
                 </b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -67,12 +67,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
   methods: {
     logout() {
       this.$store.dispatch("logout");

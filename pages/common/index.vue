@@ -3,94 +3,107 @@
     <main role="main">
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Let's Join!</h1>
+          <h2 class="display-3">
+            Your Friends.
+          </h2>
+          <h2 class="display-3">
+            Your Games.
+          </h2>
+          <h2 class="display-3">
+            Your Table.
+          </h2>
           <p>
-            このサイトはオンラインでのテーブルトップゲームの素晴らしい体験をあなたに提供します
-          </p>
-          <p>
-            <a
+            <nuxt-link
               class="btn btn-primary btn-lg"
-              to="@/common/searchsession"
+              to="/common/searchsession"
               role="button"
-              >セッションへ参加する &raquo;</a
             >
+              Join a Game &raquo;
+            </nuxt-link>
           </p>
         </div>
       </div>
 
-      <div class="container">
+      <!-- <div class="container">
+        <h3>レコメンド</h3>
         <div class="row">
           <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>
-              Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
-              tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-              fermentum massa justo sit amet risus. Etiam porta sem malesuada
-              magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-              <a
-                class="btn btn-secondary"
-                to="/common/searchsession"
-                role="button"
-                >View details &raquo;</a
-              >
-            </p>
+            <h4>ダンジョンズ＆ドラゴンズ</h4>
+            <nuxt-link to="/common/searchsession" role="button">
+              <div class="image">
+                <img src="~/assets/DnDimage.jpg" />
+                <div class="mask">
+                  <div class="caption"></div>
+                </div>
+              </div>
+            </nuxt-link>
           </div>
           <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>
-              Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
-              tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-              fermentum massa justo sit amet risus. Etiam porta sem malesuada
-              magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-              <a
-                class="btn btn-secondary"
-                to="/common/searchsession"
-                role="button"
-                >View details &raquo;</a
-              >
-            </p>
+            <h4>コール・オヴ・クトゥルフ</h4>
+            <nuxt-link to="/common/searchsession" role="button">
+              <div class="image">
+                <img src="~/assets/CoC.jpg" />
+                <div class="mask">
+                  <div class="caption"></div>
+                </div>
+              </div>
+            </nuxt-link>
           </div>
           <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>
-              Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
-              egestas eget quam. Vestibulum id ligula porta felis euismod
-              semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-              condimentum nibh, ut fermentum massa justo sit amet risus.
-            </p>
-            <p>
-              <a
-                class="btn btn-secondary"
-                to="/common/searchsession"
-                role="button"
-                >View details &raquo;</a
-              >
-            </p>
+            <h4>ソード・ワールド</h4>
+            <nuxt-link to="/common/searchsession" role="button">
+              <div class="image">
+                <img src="~/assets/SW.jpg" />
+                <div class="mask">
+                  <div class="caption"></div>
+                </div>
+              </div>
+            </nuxt-link>
           </div>
         </div>
 
         <hr />
-      </div>
+      </div> -->
     </main>
 
     <footer class="container">
-      <p>&copy; Company 2017-2018</p>
+      <p>&copy; Join Company 2021</p>
     </footer>
   </div>
 </template>
 
-<script>
-export default {};
-</script>
+<script></script>
 
 <style>
 .jumbotron {
-  background-image: url("https://picsum.photos/600/400/?image=94");
+  /* background-image: url("../../assets/image.jpg"); */
   background-size: cover;
   background-position: center 60%;
+}
+.image {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+.image .caption {
+  font-size: 130%;
+  text-align: center;
+  color: #fff;
+}
+.image .mask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+.image:hover .mask {
+  opacity: 1;
+  padding-top: 80px;
 }
 </style>

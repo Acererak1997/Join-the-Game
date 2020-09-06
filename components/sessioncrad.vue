@@ -1,37 +1,46 @@
 <template>
-  <div class="card-group">
+  <div>
     <nuxt-link
       :to="`/common/session/${sessionId}`"
       style="text-decoration: none;"
     >
-      <div class="remove">
-        <b-card
-          img-alt="Image"
-          img-top
-          :title="sessionTitle"
-          :img-src="sessiontopImage"
-        >
-          <b-card-text class="text-muted">
-            {{ sessionDetail }}
-          </b-card-text>
-          <b-card-text class="small text-muted">
-            <font-awesome-icon icon="users" /> {{ currentPlayersNum }}/{{
-              maxPlayersNum
-            }}
-            <font-awesome-icon icon="book-reader" /> {{ gameMaster }}
-          </b-card-text>
-          <b-card-text class="small text-muted">
-            <font-awesome-icon icon="clock" /> {{ sessionDate }}
-            <font-awesome-icon icon="map-marker-alt" /> {{ sessionLocation }}
-          </b-card-text>
-          <!-- 余裕があれば有効化するべき -->
-          <!-- <span class="badge badge-primary" v-if="session.checkedForBeginner"
-            >初心者歓迎</span
-          >
-          <span class="badge badge-primary" v-if="session.checkedOnline"
-            >オンラインセッション</span
-          > -->
-        </b-card>
+      <div class="col-md-5">
+        <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+          <div class="card-body d-flex flex-column align-items-start">
+            <strong class="d-inline-block mb-2 text-primary">{{
+              gameSystem
+            }}</strong>
+            <h5 class="mb-0 text-dark">{{ sessionTitle }}</h5>
+            <div class="mb-1 text-muted small">
+              <font-awesome-icon icon="clock" /> {{ sessionDate }}
+            </div>
+            <p class="card-text mb-auto text-dark h6">
+              {{ sessionDetail }}
+            </p>
+            <b-card-text class="small text-muted">
+              <font-awesome-icon icon="users" /> {{ currentPlayersNum }}/{{
+                maxPlayersNum
+              }}
+              <font-awesome-icon icon="book-reader" /> {{ gameMaster }}
+            </b-card-text>
+            <b-card-text class="small text-muted">
+              <font-awesome-icon icon="map-marker-alt" />
+              {{ sessionLocation }}
+            </b-card-text>
+            <a
+              class="btn btn-outline-primary btn-sm"
+              role="button"
+              href="`/common/session/${sessionId}`"
+              >Continue reading</a
+            >
+          </div>
+          <img
+            class="card-img-right flex-auto d-none d-lg-block"
+            alt="Thumbnail [200x250]"
+            :src="sessiontopImage"
+            style="width: 400px; height: 250px;"
+          />
+        </div>
       </div>
     </nuxt-link>
   </div>
@@ -40,6 +49,11 @@
 <script>
 export default {
   props: {
+    gameSystem: {
+      type: String,
+      default: "No GameSystem",
+      required: true,
+    },
     sessionId: {
       type: String,
       default: "No title",
@@ -88,3 +102,35 @@ export default {
   },
 };
 </script>
+
+<style>
+.card-body {
+  padding: 1rem;
+}
+
+.col-md-5 {
+  max-width: 100%;
+}
+.text-muted {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.h6 {
+  line-height: 1.5;
+  height: 49px;
+  overflow: hidden;
+}
+
+.small {
+  margin: 4px 2px;
+}
+</style>
