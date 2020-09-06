@@ -1,25 +1,33 @@
 <template>
-  <div class="jumbotron">
+  <div class="mt-3">
     <h3>{{ $store.getters.getUserName }}さんのページ</h3>
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link">あなたが主催しているセッション</a>
-        <ul v-for="sessoin in hostingSessions" :key="sessoin.id">
-          <!-- nuxtリンクに飛ぶと破壊されるバグ、nuxtlinkを有効化して調べる -->
-          <!-- <nuxt-link :to="`/common/session/${session.id}`"> -->
-          <li>{{ sessoin.sessionName }}</li>
-          <!-- </nuxt-link> -->
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">あなたが参加中のセッション</a>
-        <ul>
-          <li v-for="session in participatingSessions" :key="session.id">
-            {{ session.sessionName }}
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <div>
+      <b-card no-body>
+        <b-tabs pills card>
+          <b-tab title="主催しているセッション" active>
+            <ul v-for="sessoin in hostingSessions" :key="sessoin.id">
+              <li>
+                <nuxt-link
+                  :to="{
+                    name: 'common-session-id',
+                    params: { id: sessoin.id },
+                  }"
+                >
+                  {{ sessoin.sessionName }}
+                </nuxt-link>
+              </li>
+            </ul></b-tab
+          >
+          <b-tab title="参加中のセッション">
+            <ul>
+              <li v-for="session in participatingSessions" :key="session.id">
+                {{ session.sessionName }}
+              </li>
+            </ul></b-tab
+          >
+        </b-tabs>
+      </b-card>
+    </div>
   </div>
 </template>
 
@@ -47,12 +55,6 @@ export default {
         },
         this
       );
-
-      // const sessionList = this.$store.getters["sessionlist/getSessoinData"];
-      // const joiningSessoins = sessionList.filter((joiningSession) => {
-      //   return joiningSession.id === participatingSessions;
-      // }, this);
-      // console.log(joiningSessoins);
       return participatingSessions;
     },
   },

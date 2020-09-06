@@ -2,7 +2,7 @@
   <div>
     <main role="main">
       <div class="jumbotron">
-        <div class="container">
+        <div class="container text">
           <h2 class="display-3">
             Your Friends.
           </h2>
@@ -23,47 +23,6 @@
           </p>
         </div>
       </div>
-
-      <!-- <div class="container">
-        <h3>レコメンド</h3>
-        <div class="row">
-          <div class="col-md-4">
-            <h4>ダンジョンズ＆ドラゴンズ</h4>
-            <nuxt-link to="/common/searchsession" role="button">
-              <div class="image">
-                <img src="~/assets/DnDimage.jpg" />
-                <div class="mask">
-                  <div class="caption"></div>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
-          <div class="col-md-4">
-            <h4>コール・オヴ・クトゥルフ</h4>
-            <nuxt-link to="/common/searchsession" role="button">
-              <div class="image">
-                <img src="~/assets/CoC.jpg" />
-                <div class="mask">
-                  <div class="caption"></div>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
-          <div class="col-md-4">
-            <h4>ソード・ワールド</h4>
-            <nuxt-link to="/common/searchsession" role="button">
-              <div class="image">
-                <img src="~/assets/SW.jpg" />
-                <div class="mask">
-                  <div class="caption"></div>
-                </div>
-              </div>
-            </nuxt-link>
-          </div>
-        </div>
-
-        <hr />
-      </div> -->
     </main>
 
     <footer class="container">
@@ -76,9 +35,12 @@
 
 <style>
 .jumbotron {
-  /* background-image: url("../../assets/image.jpg"); */
+  background-image: url("../../assets/image.jpg");
   background-size: cover;
   background-position: center 60%;
+}
+.text {
+  color: #fff;
 }
 .image {
   width: 300px;

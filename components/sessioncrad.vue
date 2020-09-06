@@ -18,12 +18,9 @@
               {{ sessionDetail }}
             </p>
             <b-card-text class="small text-muted">
-              <font-awesome-icon icon="users" /> {{ currentPlayersNum }}/{{
-                maxPlayersNum
-              }}
+              <font-awesome-icon class="icon" icon="users" />
+              {{ currentPlayersNum }}/{{ maxPlayersNum }}
               <font-awesome-icon icon="book-reader" /> {{ gameMaster }}
-            </b-card-text>
-            <b-card-text class="small text-muted">
               <font-awesome-icon icon="map-marker-alt" />
               {{ sessionLocation }}
             </b-card-text>
@@ -110,6 +107,7 @@ export default {
 
 .col-md-5 {
   max-width: 100%;
+  padding: 0;
 }
 .text-muted {
   overflow: hidden;
@@ -126,11 +124,15 @@ export default {
 
 .h6 {
   line-height: 1.5;
-  height: 49px;
+  /* height: 49px; */
   overflow: hidden;
 }
 
 .small {
-  margin: 4px 2px;
+  margin: 4px １px;
+}
+
+.icon {
+  margin: 0 5px;
 }
 </style>

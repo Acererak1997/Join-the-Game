@@ -76,7 +76,7 @@ export default {
           };
           firebase.firestore().collection("users").doc(user.uid).set(userData);
 
-          this.$router.replace({ path: "/common/top" });
+          this.$router.replace({ path: "/common/" });
         })
         .catch((e) => {
           console.log(e);
