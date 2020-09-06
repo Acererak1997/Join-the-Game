@@ -60,6 +60,13 @@
         >
           Login
         </button>
+        <button
+          class="login-form__button btn btn-primary w-75 mb-4"
+          type="button"
+          @click="testLogin"
+        >
+          Test Login
+        </button>
       </div>
     </div>
   </section>
@@ -78,6 +85,12 @@ export default {
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password,
+      });
+    },
+    testLogin() {
+      this.$store.dispatch("login", {
+        email: "test@gmail.com",
+        password: "testtest",
       });
     },
   },

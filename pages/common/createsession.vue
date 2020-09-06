@@ -149,20 +149,27 @@ export default {
   methods: {
     createSession() {
       const newSession = firebase.firestore().collection("sessions").doc();
-      newSession.set({
-        creatorId: this.user.uid,
-        creator: this.user.displayName,
-        sessionName: this.sessionName,
-        gameSystem: this.gameSystem,
-        date: this.dateValue,
-        participants: Number(this.number),
-        members: 0,
-        location: this.location,
-        topImage: this.url,
-        detail: this.detail,
-        checkedForBeginner: Boolean(this.checkedForBeginner),
-        checkedOnline: Boolean(this.checkedOnline),
-      });
+      newSession
+        .set({
+          creatorId: this.user.uid,
+          creator: this.user.displayName,
+          sessionName: this.sessionName,
+          gameSystem: this.gameSystem,
+          date: this.dateValue,
+          participants: Number(this.number),
+          members: 0,
+          location: this.location,
+          topImage: this.url,
+          detail: this.detail,
+          checkedForBeginner: Boolean(this.checkedForBeginner),
+          checkedOnline: Boolean(this.checkedOnline),
+        })
+        .then(() => {
+          this.$router.push({ name: "common-my-page" });
+        })
+        .catch(function (error) {
+          console.error("Error adding Session: ", error);
+        });
     },
     uploadFile(event) {
       let file = event.target.files[0];

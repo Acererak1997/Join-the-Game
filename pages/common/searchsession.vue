@@ -18,61 +18,32 @@
         検索
       </button>
     </div>
-    <div class="card-group">
+    <div class="Card decks">
       <div v-for="session in searchSessions" class="mt-3" :key="session.id">
-        <div class="card" style="width: 18rem;">
-          <b-img
-            class="bd-placeholder-img card-img-top"
-            width="100%"
-            height="180"
-            :src="session.topImage"
-            preserve-aspect-ratio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: Image cap"
-          />
-          <div class="card-body">
-            <nuxt-link :to="`/common/session/${session.id}`">
-              <h5 class="card-title">
-                {{ session.sessionName }}
-              </h5>
-            </nuxt-link>
-            <p class="card-text">
-              {{ session.detail }}
-            </p>
-          </div>
-          <ul class="sessionList-group sessionList-group-flush">
-            <li class="sessionList-group-item">
-              <span>{{ session.members }}</span
-              >/<span>{{ session.participants }}</span
-              >名が参加中
-            </li>
-            <li class="sessionList-group-item">
-              {{ session.location }}
-            </li>
-            <li class="sessionList-group-item">
-              {{ session.date }}
-            </li>
-            <li class="sessionList-group-item">
-              {{ session.creator }}
-            </li>
-          </ul>
-          <div class="card-body">
-            <span class="badge badge-primary" v-if="session.checkedForBeginner"
-              >初心者歓迎</span
-            >
-            <span class="badge badge-primary" v-if="session.checkedOnline"
-              >オンラインセッション</span
-            >
-          </div>
-        </div>
+        <sessioncard
+          :gameSystem="session.gameSystem"
+          :session-id="session.id"
+          :session-title="session.sessionName"
+          :sessiontop-image="session.topImage"
+          :session-detail="session.detail"
+          :session-date="session.date"
+          :session-location="session.location"
+          :current-players-num="session.members"
+          :max-players-num="session.participants"
+          :game-master="session.creator"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import sessioncard from "@/components/sessioncrad";
+
 export default {
+  components: {
+    sessioncard,
+  },
   data() {
     return {
       gameSystemOptions: [

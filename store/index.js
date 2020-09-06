@@ -30,7 +30,7 @@ export const actions = {
         commit("setDisplayName", user.displayName);
         commit("setStatus", { status });
         localStorage.setItem("userData", user.uid);
-        this.$router.replace({ path: "/common/top" });
+        this.$router.replace({ path: "/common/" });
       })
       .catch((e) => {
         console.log(e);
@@ -42,7 +42,7 @@ export const actions = {
       .signOut()
       .then(() => {
         commit("setStatus", null);
-        this.$router.replace({ path: "/common/top" });
+        this.$router.replace({ path: "/common/" });
       })
       .catch((e) => {
         console.log(e);
