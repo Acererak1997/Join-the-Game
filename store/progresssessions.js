@@ -41,7 +41,6 @@ export const mutations = {
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           doc.ref.delete();
-          console.log("辞退完了");
         });
       })
       .catch((err) => {

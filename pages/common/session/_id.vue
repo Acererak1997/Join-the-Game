@@ -8,14 +8,13 @@
         role="img"
       />
 
-      <div class="mt-3 mb-3">
+      <div class="mt-3 mb-3" v-if="$store.getters.getStatus !== null">
         <button
           type="button"
           class="btn btn-info"
           @click.prevent="joinSession(identifySession)"
           v-if="!joinStatus"
         >
-          {{ sessionMembers.joinStatus }}
           参加する
         </button>
         <button
@@ -26,14 +25,17 @@
         >
           退出する
         </button>
-        <button type="button" class="btn btn-info">
+        <button
+          type="button"
+          class="btn btn-info"
+          @click="deleteSession(identifySession.id)"
+        >
           削除（実装中）
         </button>
       </div>
 
       <div>
         <h5>参加者</h5>
-        {{ joinStatus }}
         <ul v-for="member in sessionMembers" :key="member.id">
           <li>{{ member.userDisplayName }}</li>
         </ul>
@@ -159,6 +161,13 @@ export default {
       declineSession.update({
         members: firebase.firestore.FieldValue.increment(-1),
       });
+    },
+    deleteSession(sessionId) {
+      if (!confirm("セッションを削除してよろしいですか？")) {
+        return;
+      }
+      firebase.firestore().collection("sessions").doc(sessionId).delete();
+      this.$router.push({ name: "common-my-page" });
     },
   },
 };
