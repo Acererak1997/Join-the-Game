@@ -1,9 +1,6 @@
 <template>
   <div>
-    <nuxt-link
-      :to="`/common/session/${sessionId}`"
-      style="text-decoration: none;"
-    >
+    <nuxt-link :to="`/session/${sessionId}`" style="text-decoration: none;">
       <div class="col-md-5">
         <div class="card flex-md-row mb-4 shadow-sm h-md-250">
           <div class="card-body d-flex flex-column align-items-start">
@@ -27,8 +24,8 @@
             <a
               class="btn btn-outline-primary btn-sm"
               role="button"
-              href="`/common/session/${sessionId}`"
-              >Continue reading</a
+              href="`/session/${sessionId}`"
+              >詳細へ</a
             >
           </div>
           <img

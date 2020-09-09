@@ -8,7 +8,7 @@
         class="p4 navbar-expand-lg"
       >
         <b-container>
-          <b-navbar-brand to="/common/">
+          <b-navbar-brand to="/">
             Let's Join!
           </b-navbar-brand>
 
@@ -16,13 +16,13 @@
 
           <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-              <b-nav-item to="/common/">
+              <b-nav-item to="/">
                 Home
               </b-nav-item>
-              <b-nav-item to="/common/searchsession">
+              <b-nav-item to="/searchsession">
                 Join a Game
               </b-nav-item>
-              <b-nav-item to="/common/createsession">
+              <b-nav-item to="/createsession">
                 Create Your Game
               </b-nav-item>
             </b-navbar-nav>
@@ -53,7 +53,7 @@
                 <template v-slot:button-content>
                   <em>{{ $store.getters.getUserName }}</em>
                 </template>
-                <b-dropdown-item to="/common/my-page">
+                <b-dropdown-item to="/my-page">
                   Mypage
                 </b-dropdown-item>
                 <b-dropdown-item @click="logout">
