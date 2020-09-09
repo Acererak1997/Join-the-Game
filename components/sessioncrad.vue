@@ -63,7 +63,7 @@ export default {
     },
     sessiontopImage: {
       type: String,
-      default: "適当なイメージ",
+      default: "No Image",
       required: true,
     },
     sessionDetail: {

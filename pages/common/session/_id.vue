@@ -7,6 +7,17 @@
         focusable="false"
         role="img"
       />
+      <div v-if="$store.getters.getStatus == null" class="text-center">
+        <p class="mb-2 mt-2">
+          セッションに参加するには、<nuxt-link to="/login"> ログイン </nuxt-link
+          >する必要があります。
+        </p>
+        <p>
+          アカウントをお持ちでない方は<nuxt-link to="/register">
+            サインアップ </nuxt-link
+          >をしてください
+        </p>
+      </div>
 
       <div class="mt-3 mb-3" v-if="$store.getters.getStatus !== null">
         <button
@@ -29,12 +40,13 @@
           type="button"
           class="btn btn-info"
           @click="deleteSession(identifySession.id)"
+          v-if="identifySession.creatorId === $store.getters.getUserUid"
         >
-          削除（実装中）
+          削除
         </button>
       </div>
 
-      <div>
+      <div class="mt-3">
         <h5>参加者</h5>
         <ul v-for="member in sessionMembers" :key="member.id">
           <li>{{ member.userDisplayName }}</li>
@@ -90,6 +102,7 @@ export default {
         { value: 1, text: "クトゥルフ神話TRPG" },
         { value: 2, text: "ソード・ワールド" },
       ],
+      hostUser: false,
     };
   },
   computed: {

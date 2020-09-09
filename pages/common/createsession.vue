@@ -11,10 +11,21 @@
         >をしてください
       </p>
     </div>
-    <div v-if="$store.getters.getStatus !== null">
-      <h3>セッションの作成</h3>
-      <div role="session">
-        <label for="input-live">セッション名:</label>
+
+    <div v-if="$store.getters.getStatus !== null" class="mt-3">
+      <validation-provider
+        v-slot="{ errors }"
+        rules="required"
+        name="セッション名"
+      >
+        <h3>セッションの作成</h3>
+        <p>
+          セッション項目を入力してください（<span class="text-danger">※</span
+          >は必須項目です）
+        </p>
+        <h5 for="input-live" class="mt-3">
+          <span class="text-danger">※</span>セッション名:
+        </h5>
         <b-form-input
           id="input-live"
           v-model="sessionName"
@@ -23,20 +34,25 @@
           placeholder="セッションのタイトルを入力してください"
           trim
         />
+        <p v-show="errors.length" class="help is-danger text-danger">
+          {{ errors[0] }}
+        </p>
+      </validation-provider>
+      <div role="session">
         <b-form-invalid-feedback id="input-live-feedback">
           セッション名は最低でも3文字以上である必要があります。
         </b-form-invalid-feedback>
-        <div>
-          <label>ゲームシステム</label>
+        <div class="mt-3">
+          <h5><span class="text-danger">※</span>ゲームシステム</h5>
           <b-form-select v-model="gameSystem" :options="gameSystemOptions" />
         </div>
-        <div>
-          <label for="date">開催日 </label>
+        <div class="mt-3">
+          <h5 for="date"><span class="text-danger">※</span>開催日</h5>
           <b-form-datepicker id="date" v-model="dateValue" class="mb-2" />
         </div>
 
-        <div>
-          <label for="date">募集人数</label>
+        <div class="mt-3">
+          <h5 for="date"><span class="text-danger">※</span>募集人数</h5>
           <b-form-input
             v-model="number"
             type="number"
@@ -44,16 +60,16 @@
           />
         </div>
 
-        <div>
-          <label>開催場所</label>
+        <div class="mt-3">
+          <h5><span class="text-danger">※</span>開催場所</h5>
           <b-form-input
             v-model="location"
             placeholder="住所、またはURLを入力してください"
           />
         </div>
 
-        <div>
-          <label>トップ画像</label>
+        <div class="mt-3">
+          <h5>トップ画像</h5>
           <b-form-file
             v-model="file"
             class="primary"
@@ -66,8 +82,8 @@
         </div>
       </div>
 
-      <div>
-        <label>セッションの詳細</label>
+      <div class="mt-3">
+        <h5>セッションの詳細</h5>
         <b-form-textarea
           id="textarea"
           v-model="detail"
@@ -115,6 +131,8 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
+// import VeeValidate, { Validator } from "vee-validate";
+
 export default {
   data() {
     return {

@@ -1,8 +1,13 @@
 <template>
-  <b-container>
+  <div>
     <div>
-      <div>
-        <b-navbar toggleable="lg" type="dark" variant="dark" class="p4">
+      <b-navbar
+        toggleable="lg"
+        type="dark"
+        variant="dark"
+        class="p4 navbar-expand-lg"
+      >
+        <b-container>
           <b-navbar-brand to="/common/">
             Let's Join!
           </b-navbar-brand>
@@ -57,12 +62,13 @@
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
-        </b-navbar>
+        </b-container>
+      </b-navbar>
+      <div class="container">
+        <nuxt-child />
       </div>
     </div>
-
-    <nuxt-child />
-  </b-container>
+  </div>
 </template>
 
 <script>

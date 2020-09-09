@@ -34,7 +34,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [{ src: "~/plugins/localStorage.js", ssr: false }],
+  plugins: [
+    { src: "~/plugins/localStorage.js", ssr: false },
+    "@/plugins/vee-validate",
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -87,6 +90,7 @@ export default {
       }
     },
   },
+  transpile: ["vee-validate/dist/rules"],
   // router: {
   //   middleware: ["getSessoin"],
   // },
