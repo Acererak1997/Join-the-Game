@@ -25,7 +25,38 @@
       </div>
     </main>
 
-    <footer class="container">
+    <div class="text-center">
+      <h4 class="m-4">How to Use</h4>
+      <div class="d-flex bd-highlight">
+        <div class="flex-fill bd-highlight w-25 p-2">
+          <h5>アカウント作成</h5>
+          <font-awesome-icon icon="sign-in-alt" class="fa-4x m-3" />
+          <p>無料でアカウントを作成して、ログインしましょう。</p>
+        </div>
+        <div class="flex-fill bd-highlight w-25 p-2">
+          <h5>ゲームを選ぶ</h5>
+          <font-awesome-icon icon="search" class="fa-4x m-3" />
+          <p>
+            Join a
+            Gameから募集中のゲームを選んで参加することです。遊びたいゲームとセッションを選んで参加ボタンを押しましょう。
+          </p>
+        </div>
+        <div class="flex-fill bd-highlight w-25 p-2">
+          <h5>セッションを作る</h5>
+          <font-awesome-icon icon="users" class="fa-4x m-3" />
+          <p>
+            自分でセッションを募集することも可能です。あなたが選んだゲームでセッションを作成しましょう。友達を誘っても、見知らぬ人とでも遊ぶことができます。
+          </p>
+        </div>
+        <div class="flex-fill bd-highlight w-25 p-2">
+          <h5>プレイ！</h5>
+          <font-awesome-icon icon="play-circle" class="fa-4x m-3" />
+          <p>準備はできました。ゲームをはじめましょう！</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="container text-center">
       <p>&copy; Join Company 2021</p>
     </footer>
   </div>

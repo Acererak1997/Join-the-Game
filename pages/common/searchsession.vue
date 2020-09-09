@@ -7,14 +7,14 @@
         <b-form-select v-model="gameSystem" :options="gameSystemOptions" />
       </div>
       <div>
-        <b-form-checkbox id="forBeginner" class="pb-1" v-model="forBeginner">
+        <!-- <b-form-checkbox id="forBeginner" class="pb-1" v-model="forBeginner">
           初心者歓迎
         </b-form-checkbox>
         <b-form-checkbox id="onlyOnline" class="pb-1" v-model="onlyOnline">
           オンラインセッションのみ
-        </b-form-checkbox>
+        </b-form-checkbox> -->
       </div>
-      <button type="button" class="btn btn-info">
+      <button type="button" class="btn btn-info mt-3">
         検索
       </button>
     </div>
