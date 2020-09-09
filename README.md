@@ -1,20 +1,14 @@
-# Join-the-Game
+# ポートフォリオ
+## 概要
+Nuxtを用いたボードゲームの募集掲示板アプリです。ユーザーは募集する側にも参加するプレイヤーにもなれます。
+オンライン、オフライン問わずに集まって気軽に遊べる掲示板をイメージしました。
 
-## Build Setup
+## 使用技術
+URL:~~~
 
-```bash
-# install dependencies
-$ yarn install
+### 使用技術
+・Nuxt.js
+・Firebase
+・Bootstrap Vue
 
-# serve with hot reload at localhost:3000
-$ yarn dev
 
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
