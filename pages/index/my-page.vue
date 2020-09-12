@@ -9,7 +9,7 @@
               <li>
                 <nuxt-link
                   :to="{
-                    name: 'common-session-id',
+                    name: 'index-session-id',
                     params: { id: sessoin.id },
                   }"
                 >
@@ -21,7 +21,14 @@
           <b-tab title="参加中のセッション">
             <ul>
               <li v-for="session in participatingSessions" :key="session.id">
-                {{ session.sessionName }}
+                <nuxt-link
+                  :to="{
+                    name: 'index-session-id',
+                    params: { id: sessoin.id },
+                  }"
+                >
+                  {{ session.sessionName }}
+                </nuxt-link>
               </li>
             </ul></b-tab
           >
