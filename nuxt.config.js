@@ -91,6 +91,9 @@ export default {
     },
   },
   transpile: ["vee-validate/dist/rules"],
+  generate: {
+    fallback: true,
+  },
   // router: {
   //   middleware: ["getSessoin"],
   // },

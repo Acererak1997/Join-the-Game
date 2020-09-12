@@ -132,8 +132,8 @@ export default {
         .collection("progressSessions")
         .where("sessionId", "==", this.$route.params.id)
         .where("userId", "==", user.uid);
-      const self = this;
 
+      const self = this;
       confrimJoinStatus
         .get()
         .then(function (querySnapshot) {

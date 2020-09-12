@@ -15,7 +15,7 @@
           <p>
             <nuxt-link
               class="btn btn-primary btn-lg"
-              to="/common/searchsession"
+              to="/searchsession"
               role="button"
             >
               Join a Game &raquo;
