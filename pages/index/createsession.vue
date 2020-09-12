@@ -160,7 +160,7 @@
 
         <div>
           <p class="text-danger" v-show="invalid">
-            必須項目は全て入力してください
+            必須項目を全て入力してください
           </p>
           <button
             type="button"
@@ -180,7 +180,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/storage";
-// import VeeValidate, { Validator } from "vee-validate";
 
 export default {
   data() {
