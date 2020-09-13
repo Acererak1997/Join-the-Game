@@ -231,7 +231,7 @@ export default {
           checkedOnline: Boolean(this.checkedOnline),
         })
         .then(() => {
-          this.$router.push({ name: "common-my-page" });
+          this.$router.push({ name: "index-my-page" });
         })
         .catch(function (error) {
           console.error("Error adding Session: ", error);
@@ -254,3 +254,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#textarea {
+  white-space: pre-wrap;
+}
+</style>

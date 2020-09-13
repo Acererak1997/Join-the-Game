@@ -20,22 +20,24 @@
       </div>
 
       <div class="mt-3 mb-3" v-if="$store.getters.getStatus !== null">
-        <button
-          type="button"
-          class="btn btn-info"
-          @click.prevent="joinSession(identifySession)"
-          v-if="!joinStatus"
-        >
-          参加する
-        </button>
-        <button
-          type="button"
-          class="btn btn-info"
-          @click.prevent="declineSession(identifySession)"
-          v-else
-        >
-          退出する
-        </button>
+        <div v-if="!identifySession.creatorId === $store.getters.getUserUid">
+          <button
+            type="button"
+            class="btn btn-info"
+            @click.prevent="joinSession(identifySession)"
+            v-if="!joinStatus"
+          >
+            参加する
+          </button>
+          <button
+            type="button"
+            class="btn btn-info"
+            @click.prevent="declineSession(identifySession)"
+            v-else
+          >
+            退出する
+          </button>
+        </div>
         <button
           type="button"
           class="btn btn-info"
