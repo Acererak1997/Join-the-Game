@@ -22,9 +22,9 @@
             <ul>
               <li v-for="session in participatingSessions" :key="session.id">
                 <nuxt-link
-                  :to="{
+                  v-bind:to="{
                     name: 'index-session-id',
-                    params: { id: sessoin.id },
+                    params: { id: session.id },
                   }"
                 >
                   {{ session.sessionName }}
