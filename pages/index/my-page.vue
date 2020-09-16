@@ -19,12 +19,12 @@
             </ul></b-tab
           >
           <b-tab title="参加中のセッション">
-            <ul>
-              <li v-for="session in participatingSessions" :key="session.id">
+            <ul v-for="session in participatingSessions" :key="session.id">
+              <li>
                 <nuxt-link
-                  v-bind:to="{
+                  :to="{
                     name: 'index-session-id',
-                    params: { id: session.id },
+                    params: { id: session.sessionId },
                   }"
                 >
                   {{ session.sessionName }}
@@ -39,8 +39,6 @@
 </template>
 
 <script>
-import firebase from "~/plugins/firebase";
-
 export default {
   computed: {
     hostingSessions: function () {
@@ -64,9 +62,6 @@ export default {
       );
       return participatingSessions;
     },
-  },
-  mounted() {
-    firebase.auth().currentUser;
   },
   created() {
     this.$store.dispatch("sessionlist/getSessionslist");
