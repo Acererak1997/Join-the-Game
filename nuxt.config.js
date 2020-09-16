@@ -64,7 +64,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://firestore.googleapis.com/v1/projects/join-the-game-74125/databases/(default)/documents'
+  },
   fontawesome: {
     imports: [
       {
