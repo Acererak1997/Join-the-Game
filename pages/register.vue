@@ -40,7 +40,6 @@
           >
             新規登録
           </button>
-          <!-- <p class="small">アカウントをお持ちの方は<nuxt-link to="login">ログイン</nuxt-link>へ</p> -->
         </form>
       </div>
     </div>
