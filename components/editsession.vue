@@ -9,7 +9,7 @@
       />
 
       <div class="mt-3 mb-3">
-        <button type="button" class="btn btn-info">
+        <button type="button" class="btn btn-info" @click="updateSessoin">
           更新する
         </button>
       </div>
@@ -17,26 +17,29 @@
 
     <div class="ml-3 w-50">
       <h2>
-        <input type="text" :value="sessionName" />
+        <input type="text" v-model="sessionTitle" />
       </h2>
       <table class="table table-striped mt-2">
         <tbody>
           <tr>
             <th scope="row">ゲームマスター：</th>
             <td>
-              <input type="text" :value="creator" />
+              {{ creator }}
             </td>
           </tr>
           <tr>
             <th scope="row">ゲームシステム：</th>
             <td>
-              <input type="text" :value="gameSystem" />
+              <b-form-select
+                v-model="gameSystems"
+                :options="gameSystemOptions"
+              />
             </td>
           </tr>
           <tr>
             <th scope="row">開始日：</th>
             <td>
-              <input type="text" :value="date" />
+              <b-form-datepicker id="date" v-model="dateValue" class="mb-2" />
             </td>
           </tr>
           <tr>
@@ -48,19 +51,39 @@
           <tr>
             <th scope="row">募集人数：</th>
             <td>
-              <input type="text" :value="participants" />
+              <b-form-input
+                v-model="maxPlayers"
+                type="number"
+                placeholder="募集する人数を選択してください"
+              />
             </td>
           </tr>
         </tbody>
       </table>
       <h4>セッション詳細</h4>
-      <textarea cols="60" rows="10" :value="detail"></textarea>
+      <textarea cols="60" rows="10" v-model="sessionsDetail"></textarea>
     </div>
   </div>
 </template>
 
 <script scope>
+import firebase from "~/plugins/firebase";
+
 export default {
+  data() {
+    return {
+      sessionTitle: this.sessionName,
+      gameSystemOptions: [
+        { value: 0, text: "ダンジョンズ＆ドラゴンズ" },
+        { value: 1, text: "クトゥルフ神話TRPG" },
+        { value: 2, text: "ソード・ワールド" },
+      ],
+      gameSystems: this.gameSystem,
+      dateValue: this.date,
+      maxPlayers: this.participants,
+      sessionsDetail: this.detail,
+    };
+  },
   props: {
     topImage: {
       type: String,
@@ -78,8 +101,8 @@ export default {
       required: true,
     },
     gameSystem: {
-      type: String,
-      default: "",
+      type: Number,
+      default: 0,
       required: true,
     },
     date: {
@@ -100,6 +123,32 @@ export default {
       type: String,
       default: "",
       required: true,
+    },
+    sessionId: {
+      type: String,
+    },
+  },
+  methods: {
+    updateSessoin() {
+      const refSession = firebase
+        .firestore()
+        .collection("sessions")
+        .doc(this.sessionId);
+
+      return refSession
+        .update({
+          sessionName: this.sessionTitle,
+          gameSystem: Number(this.gameSystem),
+          date: this.dateValue,
+          participants: Number(this.maxPlayers),
+          detail: this.sessionsDetail,
+        })
+        .then(() => {
+          this.$router.push({ path: `/my-page` });
+        })
+        .catch((error) => {
+          console.error("Error updating document: ", error);
+        });
     },
   },
 };
