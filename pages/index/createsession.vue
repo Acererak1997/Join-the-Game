@@ -220,7 +220,7 @@ export default {
           creatorId: this.user.uid,
           creator: this.user.displayName,
           sessionName: this.sessionName,
-          gameSystem: this.gameSystem,
+          gameSystem: Number(this.gameSystem),
           date: this.dateValue,
           participants: Number(this.number),
           members: 0,

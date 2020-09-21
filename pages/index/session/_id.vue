@@ -108,11 +108,12 @@
       :topImage="identifySession.topImage"
       :sessionName="identifySession.sessionName"
       :creator="identifySession.creator"
-      :gameSystem="gameSystemLabels[identifySession.gameSystem]"
+      :gameSystem="identifySession.gameSystem"
       :date="identifySession.date"
       :location="identifySession.location"
       :participants="identifySession.participants"
       :detail="identifySession.detail"
+      :sessionId="this.$route.params.id"
     >
     </editSession>
   </div>
